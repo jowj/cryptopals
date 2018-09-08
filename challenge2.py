@@ -5,6 +5,6 @@ def fixedXor(arg1, arg2):
     input2 = int(arg2, 16)
 
     hexData = (hex(input1 ^ input2))
-    return hexData[2:]
+    return hexData[2:]                # this is done to remove leading 0x. 
 
 print(fixedXor("1c0111001f010100061a024b53535009181c", "686974207468652062756c6c277320657965"))
