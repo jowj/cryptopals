@@ -21,7 +21,13 @@ for key,value in tableOfPossibleAnswers.items():
 
 # find the highest value and return it and its corresponding key
 maxValue = max(weightedCodes.values())
+answerValue = []
 for key in weightedCodes:
     if weightedCodes[key] == maxValue:
-        print(key, weightedCodes[key])
-    
+        answerValue = key
+
+# now i need to use that to key into the original tableOfPossibleAnswers to return the answer and the decryption key.
+
+for key,value in tableOfPossibleAnswers.items():
+    if tableOfPossibleAnswers[key] == answerValue:
+        print(key, tableOfPossibleAnswers[key])
