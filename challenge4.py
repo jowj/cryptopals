@@ -5,7 +5,8 @@ from binascii import unhexlify
 request = requests.get('https://cryptopals.com/static/challenge-data/4.txt')
 requestArray = request.text.splitlines()
 
-# here's the code used in challenge 3, which is said to be useful
+# here's the code used in challenge 3, which is said to be useful. tweaked slightly.
+
 def xor_SingleByte(hexed):
     alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
     unHexed = unhexlify(hexed)
@@ -14,8 +15,8 @@ def xor_SingleByte(hexed):
     tableOfPossibleAnswers = {}
     for code in range(256):
         possibleAnswer = ''.join(chr(byte ^ code) for byte in unHexed)
-        if possibleAnswer.isprintable():
-            tableOfPossibleAnswers[code] = possibleAnswer
+        # if possibleAnswer.isprintable():
+        tableOfPossibleAnswers[code] = possibleAnswer
 
     # weight the answers using a simple english alphabet list
     if tableOfPossibleAnswers:
@@ -36,8 +37,19 @@ def xor_SingleByte(hexed):
         # now i need to use that to key into the original tableOfPossibleAnswers to return the answer and the decryption key.
         for key,value in tableOfPossibleAnswers.items():
             if tableOfPossibleAnswers[key] == answerValue:
-                print(key, tableOfPossibleAnswers[key])
+                return(key, tableOfPossibleAnswers[key])
 
+masterTable = []
+for i in range(len(requestArray)):
+    masterTable.append(xor_SingleByte(requestArray[i]))
+    
+print(masterTable)
+# now, this code does not produce anything that i have confidence in, at the end.
+# 127 Q3QHD<4rtdKsOq4f)klqßC\3VQk,s9 is the highest ranked value. what.
+# this leads me to believe that something in the first block is incorrect; unhexlify, or possible isprintable()
+# i am leaning towards unhexlify
+# its also possible that the strings are Just Weird On Purpose, and not intended to be english
+# if that's the case i'm also screwed, because my weight system is based on the english language.
 
-for string in requestArray:
-    xor_SingleByte(string)
+# turns out, .isprintable() removes newlines so WHOOPS.
+# SHIT fuck it turns out MaxValue is being overwritten.
