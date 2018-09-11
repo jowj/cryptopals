@@ -67,9 +67,9 @@ def main():
         xoredData = xorIntAgainstAllAsciiCodes(byteConversion)
         ratedData = rateWeighedAnswers(weighPossibleAnswers(xoredData))
 
-        for data in ratedData:
-            ratedDataTable
-        print(sorted(ratedData))
+        ratedDataTable.update(ratedData)
+    
+    print(ratedDataTable)
 
 if __name__ == "__main__":
     main()
