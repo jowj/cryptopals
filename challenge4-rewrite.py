@@ -69,7 +69,7 @@ def main():
 
         ratedDataTable.update(ratedData)
     
-    print(ratedDataTable)
+    print(rateWeighedAnswers(ratedDataTable))
 
 if __name__ == "__main__":
     main()
